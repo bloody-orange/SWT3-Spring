@@ -11,3 +11,6 @@ buildNumber.properties
 .idea/tasks.xml
 .idea/*.iws
 /data/
+/src/main/java/swt6/orm/
+/src/main/resources/swt6/orm/
+/src/test/java/swt6/orm/
