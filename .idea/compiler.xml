@@ -7,10 +7,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="worklog-orm" />
+        <module name="worklog-spring" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="worklog-orm" target="1.8" />
+      <module name="worklog-spring" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

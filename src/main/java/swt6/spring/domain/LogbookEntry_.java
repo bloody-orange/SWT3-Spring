@@ -10,5 +10,5 @@ public class LogbookEntry_ {
     public static volatile SingularAttribute<LogbookEntry, Date> stopTime;
     public static volatile SingularAttribute<LogbookEntry, Employee> employee;
     public static volatile SingularAttribute<LogbookEntry, Phase> phase;
-    public static volatile SingularAttribute<LogbookEntry, Module> module;
+    public static volatile SingularAttribute<LogbookEntry, Project> project;
 }

@@ -26,7 +26,7 @@ public class Project implements BaseEntity<Long> {
     private Employee leader;
 
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
-    private Set<Module> modules;
+    private Set<LogbookEntry> entries;
 
     @OneToMany(mappedBy = "project", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Issue> issues;
@@ -77,6 +77,9 @@ public class Project implements BaseEntity<Long> {
         if (issue == null) {
             throw new IllegalArgumentException("Issue was null");
         }
+        if(issue.getProject() != null) {
+            issue.getProject().removeIssue(issue);
+        }
         this.issues.add(issue);
         issue.setProject(this); // bidirectional relation
     }
@@ -113,31 +116,31 @@ public class Project implements BaseEntity<Long> {
         employee.getProjects().remove(this);
     }
 
-    public Set<Module> getModules() {
-        return modules;
+    public Set<LogbookEntry> getEntries() {
+        return entries;
     }
 
-    public void setModules(Set<Module> modules) {
-        this.modules = modules;
+    public void setEntries(Set<LogbookEntry> entries) {
+        this.entries = entries;
     }
 
-    public void addModule(Module module) {
+    public void addEntry(LogbookEntry module) {
         if (module == null) {
             throw new IllegalArgumentException("Module was null");
         }
-        this.modules.add(module);
+        this.entries.add(module);
         if (module.getProject() != null) {
-            module.getProject().removeModule(module);
+            module.getProject().removeEntry(module);
         }
         module.setProject(this);
     }
 
-    public void removeModule(Module module) {
-        if (module == null) {
+    public void removeEntry(LogbookEntry entry) {
+        if (entry == null) {
             throw new IllegalArgumentException("Module was null");
         }
-        this.modules.remove(module);
-        module.setProject(null);
+        this.entries.remove(entry);
+        entry.setProject(null);
     }
 
     public void removeDependencies() {
@@ -145,8 +148,8 @@ public class Project implements BaseEntity<Long> {
         for (Employee e: members) {
             e.getProjects().remove(this);
         }
-        for(Module m: modules) {
-            m.setProject(null);
+        for(LogbookEntry le: entries) {
+            le.setProject(null);
         }
     }
 

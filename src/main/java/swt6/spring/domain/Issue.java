@@ -23,10 +23,10 @@ public class Issue implements BaseEntity<Long> {
     private IssuePriority priority;
 
     @Column
-    private int estimatedMinutes;
+    private Integer estimatedMinutes;
 
     @Column
-    private int percentageDone;
+    private Integer percentageDone;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @Fetch(FetchMode.JOIN)
@@ -42,7 +42,7 @@ public class Issue implements BaseEntity<Long> {
     public Issue() {
     }
 
-    public Issue(String description, Project project, IssueState state, IssuePriority priority, int estimatedMinutes, int percentageDone) {
+    public Issue(String description, Project project, IssueState state, IssuePriority priority, Integer estimatedMinutes, Integer percentageDone) {
         this.description = description;
         this.project = project;
         this.percentageDone = percentageDone;
@@ -60,7 +60,6 @@ public class Issue implements BaseEntity<Long> {
     }
 
     public Long getId() {
-
         return id;
     }
 
@@ -138,19 +137,19 @@ public class Issue implements BaseEntity<Long> {
         this.priority = priority;
     }
 
-    public int getEstimatedMinutes() {
+    public Integer getEstimatedMinutes() {
         return estimatedMinutes;
     }
 
-    public void setEstimatedMinutes(int estimatedMinutes) {
+    public void setEstimatedMinutes(Integer estimatedMinutes) {
         this.estimatedMinutes = estimatedMinutes;
     }
 
-    public int getPercentageDone() {
+    public Integer getPercentageDone() {
         return percentageDone;
     }
 
-    public void setPercentageDone(int percentageDone) {
+    public void setPercentageDone(Integer percentageDone) {
         if (percentageDone > 100 || percentageDone < 0) {
             throw new IllegalArgumentException("percentage out of bounds");
         }

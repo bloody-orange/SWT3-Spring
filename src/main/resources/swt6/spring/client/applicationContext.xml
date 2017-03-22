@@ -1,15 +1,106 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
-       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
-		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
-		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
 
-    <context:property-placeholder location="swt6/spring/"/>
+    <context:property-placeholder location="swt6/spring/client/jpa.properties"/>
 
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+          destroy-method="close">
+        <property name="driverClassName" value="${database.driverClassName}"/>
+        <property name="url" value="${database.url}"/>
+        <property name="username" value="${database.username}"/>
+        <property name="password" value="${database.password}"/>
+    </bean>
+
+    <bean id="entityManagerFactory"
+          class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="packagesToScan" value="swt6.spring.domain"/>
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
+        </property>
+        <property name="jpaProperties">
+            <props>
+                <prop key="hibernate.dialect">${hibernate.dialect}</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.format_sql">false</prop>
+                <prop key="hibernate.hbm2ddl.auto">create</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!-- BeanPostProcessor that processes @PersistenceContext for injecting EntityManager -->
+    <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>
+
+    <!-- BeanPostProcessor for exception translation -->
+    <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
+
+    <!-- ============================ DAO DEFINITIONS =========================== -->
+
+    <!--    <bean id="employeeDaoJpa" class="swt6.spring.worklog.dal.jpa.EmployeeDaoJpa"/> -->
+    <!-- repos -->
+    <jpa:repositories base-package="swt6.spring.dal"
+                      entity-manager-factory-ref="entityManagerFactory"
+                      transaction-manager-ref="transactionManager">
+    </jpa:repositories>
+
+    <!-- ====================== BUSINESS OBJECT DEFINIONS ======================= -->
+
+    <bean id="addressManager" class="swt6.spring.bl.impl.AddressManagerImpl" />
+    <bean id="employeeManager" class="swt6.spring.bl.impl.EmployeeManagerImpl" />
+    <bean id="issueManager" class="swt6.spring.bl.impl.IssueManagerImpl" />
+    <bean id="logbookEntryManager" class="swt6.spring.bl.impl.LogbookEntryManagerImpl" />
+    <bean id="phaseManager" class="swt6.spring.bl.impl.PhaseManagerImpl" />
+    <bean id="projectManager" class="swt6.spring.bl.impl.ProjectManagerImpl" />
+    <!-- ======================== TRANSACTION DEFINIONS ========================= -->
+
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory" />
+    </bean>
+
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="find*" read-only="true" />
+            <tx:method name="*"/>
+        </tx:attributes>
+    </tx:advice>
+
+
+    <aop:config>
+        <aop:pointcut id="blMethods" expression="execution(public * swt6.spring.bl.impl.*.*(..))" />
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="blMethods"/>
+    </aop:config>
+
+    <!-- ========================= UIProcessComponent =========================== -->
+
+    <bean id="uiComponent" class="swt6.spring.ui.UIProcessComponent">
+        <constructor-arg name="addressManager" ref="addressManager" />
+        <constructor-arg name="employeeManager" ref="employeeManager" />
+        <constructor-arg name="issueManager" ref="issueManager" />
+        <constructor-arg name="entryManager" ref="logbookEntryManager" />
+        <constructor-arg name="phaseManager" ref="phaseManager" />
+        <constructor-arg name="projectManager" ref="projectManager" />
+    </bean>
+
+    <bean id="jpaInterception" class="swt6.util.advice.JpaInterceptor">
+        <property name="entityManagerFactory" ref="entityManagerFactory" />
+    </bean>
+
+    <aop:config>
+        <aop:aspect ref="jpaInterception">
+            <aop:around method="holdEntityManager"
+                        pointcut="execution(public * swt6.spring.worklog.ui.*.*(..))"/>
+        </aop:aspect>
+    </aop:config>
+
+    <!-- ============ Enable annotation based dependency injection ============= -->
+    <context:annotation-config />
 </beans>

@@ -14,6 +14,10 @@
         <hibernate.version>5.2.7.Final</hibernate.version>
         <derby.version>10.13.1.1</derby.version>
         <junit.version>4.12</junit.version>
+        <commons-dbcp.version>1.4</commons-dbcp.version>
+        <aspectj.version>1.8.10</aspectj.version>
+        <spring.version>4.3.6.RELEASE</spring.version>
+        <spring-data.version>1.11.0.RELEASE</spring-data.version>
         <slf4j.version>1.7.22</slf4j.version>
     </properties>
 
@@ -26,30 +30,29 @@
                 <configuration>
                     <derbyHome>${project.basedir}/data</derbyHome>
                     <port>1527</port>
-                    <database>WorklogDb</database>
+                    <database>WorkLogDb</database>
                 </configuration>
             </plugin>
         </plugins>
     </build>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-framework-bom</artifactId>
+                <version>${spring.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>${junit.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.codehaus.btm</groupId>
-            <artifactId>btm</artifactId>
-            <version>2.1.4</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.ninja-squad</groupId>
-            <artifactId>DbSetup</artifactId>
-            <version>2.1.0</version>
             <scope>test</scope>
         </dependency>
 
@@ -73,20 +76,6 @@
 
         <dependency>
             <groupId>org.apache.derby</groupId>
-            <artifactId>derbyclient</artifactId>
-            <version>${derby.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>9.4.1212.jre7</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.derby</groupId>
             <artifactId>derbynet</artifactId>
             <version>${derby.version}</version>
             <scope>runtime</scope>
@@ -105,6 +94,152 @@
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>42.0.0.jre7</version>
+        </dependency>
+
+        <!-- includes the embedded JDBC driver -->
+        <dependency>
+            <groupId>org.apache.derby</groupId>
+            <artifactId>derby</artifactId>
+            <version>${derby.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.derby</groupId>
+            <artifactId>derbyclient</artifactId>
+            <version>${derby.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-dbcp</groupId>
+            <artifactId>commons-dbcp</artifactId>
+            <version>${commons-dbcp.version}</version>
+        </dependency>
+
+        <!-- Expression Language (depends on spring-core) Define this if you use
+            Spring Expression APIs (org.springframework.expression.*) -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-expression</artifactId>
+        </dependency>
+
+        <!-- Bean Factory and JavaBeans utilities (depends on spring-core) Define
+            this if you use Spring Bean APIs (org.springframework.beans.*) -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+        </dependency>
+
+        <!-- Aspect Oriented Programming (AOP) Framework (depends on spring-core,
+            spring-beans) Define this if you use Spring AOP APIs (org.springframework.aop.*) -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aop</artifactId>
+        </dependency>
+
+        <!-- Application Context (depends on spring-core, spring-expression, spring-aop,
+            spring-beans) This is the central artifact for Spring's Dependency Injection
+            Container and is generally always defined -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+
+        <!-- Various Application Context utilities, including EhCache, JavaMail,
+            Quartz, and Freemarker integration Define this if you need any of these integrations -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+        </dependency>
+
+        <!-- Transaction Management Abstraction (depends on spring-core, spring-beans,
+            spring-aop, spring-context) Define this if you use Spring Transactions or
+            DAO Exception Hierarchy (org.springframework.transaction.*/org.springframework.dal.*) -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+        </dependency>
+
+        <!-- JDBC Data Access Library (depends on spring-core, spring-beans, spring-context,
+            spring-tx) Define this if you use Spring's JdbcTemplate API (org.springframework.jdbc.*) -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+        </dependency>
+
+        <!-- Object-to-Relation-Mapping (ORM) integration with Hibernate, JPA,
+            and iBatis. (depends on spring-core, spring-beans, spring-context, spring-tx)
+            Define this if you need ORM (org.springframework.orm.*) -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+        </dependency>
+
+        <!-- Object-to-XML Mapping (OXM) abstraction and integration with JAXB,
+            JiBX, Castor, XStream, and XML Beans. (depends on spring-core, spring-beans,
+            spring-context) Define this if you need OXM (org.springframework.oxm.*) -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-oxm</artifactId>
+        </dependency>
+
+        <!-- Web application development utilities applicable to both Servlet and
+            Portlet Environments (depends on spring-core, spring-beans, spring-context)
+            Define this if you use Spring MVC, or wish to use Struts, JSF, or another
+            web framework with Spring (org.springframework.web.*) -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+        </dependency>
+
+        <!-- Spring MVC for Servlet Environments (depends on spring-core, spring-beans,
+            spring-context, spring-web) Define this if you use Spring MVC with a Servlet
+            Container such as Apache Tomcat (org.springframework.web.servlet.*) -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+        </dependency>
+
+        <!-- Spring MVC for Portlet Environments (depends on spring-core, spring-beans,
+            spring-context, spring-web) Define this if you use Spring MVC with a Portlet
+            Container (org.springframework.web.portlet.*) -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc-portlet</artifactId>
+        </dependency>
+
+        <!-- Support for testing Spring applications with tools such as JUnit and
+            TestNG This artifact is generally always defined with a 'test' scope for
+            the integration testing framework and unit testing stubs -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+            <version>${aspectj.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+            <version>${spring-data.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>${aspectj.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.inject</groupId>
+            <artifactId>javax.inject</artifactId>
+            <version>1</version>
         </dependency>
     </dependencies>
 

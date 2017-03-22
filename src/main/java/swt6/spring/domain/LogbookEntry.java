@@ -34,7 +34,7 @@ public class LogbookEntry implements BaseEntity<Long> {
     private Phase phase;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Module module;
+    private Project project;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Issue issue;
@@ -42,17 +42,17 @@ public class LogbookEntry implements BaseEntity<Long> {
     public LogbookEntry() {
     }
 
-    public LogbookEntry(String activity, Date startTime, Date stopTime, Employee employee, Phase phase, Module module) {
+    public LogbookEntry(String activity, Date startTime, Date stopTime, Employee employee, Phase phase, Project project) {
         this.activity = activity;
         this.startTime = startTime;
         this.stopTime = stopTime;
         employee.addLogbookEntry(this);
         phase.addLogbookEntry(this);
-        module.addLogbookEntry(this);
+        project.addEntry(this);
     }
 
-    public LogbookEntry(String activity, Date startTime, Date stopTime, Employee employee, Phase phase, Module module, Issue issue) {
-        this(activity, startTime, stopTime, employee, phase, module);
+    public LogbookEntry(String activity, Date startTime, Date stopTime, Employee employee, Phase phase, Project project, Issue issue) {
+        this(activity, startTime, stopTime, employee, phase, project);
         issue.addLogbookEntry(this);
     }
 
@@ -72,7 +72,7 @@ public class LogbookEntry implements BaseEntity<Long> {
     public void removeDependencies() {
         employee.getLogbookEntries().remove(this);
         phase.getEntries().remove(this);
-        module.getEntries().remove(this);
+        project.getEntries().remove(this);
         issue.getEntries().remove(this);
     }
 
@@ -121,12 +121,12 @@ public class LogbookEntry implements BaseEntity<Long> {
         this.phase = phase;
     }
 
-    public Module getModule() {
-        return module;
+    public Project getProject() {
+        return project;
     }
 
-    void setModule(Module module) {
-        this.module = module;
+    void setProject(Project module) {
+        this.project = module;
     }
 
     @Override
