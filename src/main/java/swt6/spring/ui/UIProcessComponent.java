@@ -1,6 +1,7 @@
 package swt6.spring.ui;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import swt6.spring.domain.Employee;
 import swt6.spring.bl.*;
 import swt6.spring.domain.Issue;
 import swt6.spring.domain.IssueState;
@@ -32,17 +33,21 @@ public class UIProcessComponent implements UIProcessFacade {
 
     @Override
     public void displayAllEmployees() {
-
+        for (Employee empl: employeeManager.findAll()) {
+            System.out.println(empl.toString());
+        }
     }
 
     @Override
     public void createProject(Project project) {
-
+        projectManager.save(project);
     }
 
     @Override
     public void displayAllProjects() {
-
+        for (Project proj: projectManager.findAll()) {
+            System.out.println(proj);
+        }
     }
 
     @Override

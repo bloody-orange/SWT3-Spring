@@ -32,7 +32,7 @@ public class IssueManagerImpl extends AbstractBaseManager<Issue, Long, IssueRepo
         if (issue.getId() != null && issue.getAssignee() != null) {
             Issue old = findById(issue.getId());
             if (old.getAssignee() != null && old.getAssignee() != issue.getAssignee()) {
-                if (entryRepo.findAllByAssigneeAndIssue(old.getAssignee(), issue).size() > 0) {
+                if (entryRepo.findAllByEmployeeAndIssue(old.getAssignee(), issue).size() > 0) {
                     throw new IllegalStateException("Assignee can't change anymore");
                 }
             }

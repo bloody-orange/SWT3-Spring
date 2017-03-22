@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="Derby (Client) - jdbc:derby://localhost/WorkLogDb;create=true" uuid="85b4a6e8-6e4c-4fb0-a587-1b6522f4a485">
+      <database-info product="Apache Derby" version="10.13.1.1 - (1765088)" jdbc-version="4.2" driver-name="Apache Derby Network Client JDBC Driver" driver-version="10.13.1.1 - (1765088)">
+        <identifier-quote-string>&quot;</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="upper" quoted-identifiers="exact" />
+      <secret-storage>master_key</secret-storage>
+      <user-name>derby</user-name>
+      <resolve-scope>:DERBY,APP</resolve-scope>
+    </data-source>
+    <data-source name="postgres@localhost" uuid="724fbfbf-9020-4494-89bc-927a3c3695e5">
+      <database-info product="PostgreSQL" version="9.6.2" jdbc-version="4.0" driver-name="PostgreSQL Native Driver" driver-version="PostgreSQL 9.4 JDBC4 (build 1201)">
+        <identifier-quote-string>&quot;</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="lower" quoted-identifiers="exact" />
+      <secret-storage>master_key</secret-storage>
+      <user-name>postgres</user-name>
+      <resolve-scope>postgres:public,postgres</resolve-scope>
+    </data-source>
+  </component>
+</project>

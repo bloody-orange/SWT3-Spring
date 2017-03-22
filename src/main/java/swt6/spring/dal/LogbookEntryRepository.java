@@ -8,5 +8,5 @@ import swt6.spring.domain.LogbookEntry;
 import java.util.List;
 
 public interface LogbookEntryRepository extends JpaRepository<LogbookEntry, Long> {
-    List<LogbookEntry> findAllByAssigneeAndIssue(Employee assignee, Issue issue);
+    List<LogbookEntry> findAllByEmployeeAndIssue(Employee employee, Issue issue);
 }

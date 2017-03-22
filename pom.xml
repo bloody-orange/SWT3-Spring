@@ -210,7 +210,7 @@
         </dependency>
 
         <!-- Support for testing Spring applications with tools such as JUnit and
-            TestNG This artifact is generally always defined with a 'test' scope for
+            TestNG This artifact is generally always defined with a 'ConsoleApplication' scope for
             the integration testing framework and unit testing stubs -->
         <dependency>
             <groupId>org.springframework</groupId>

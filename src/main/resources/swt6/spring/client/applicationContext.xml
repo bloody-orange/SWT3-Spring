@@ -9,9 +9,6 @@
 
 		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-
-    <context:property-placeholder location="swt6/spring/client/jpa.properties"/>
-
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
           destroy-method="close">
         <property name="driverClassName" value="${database.driverClassName}"/>
@@ -90,14 +87,14 @@
         <constructor-arg name="projectManager" ref="projectManager" />
     </bean>
 
-    <bean id="jpaInterception" class="swt6.util.advice.JpaInterceptor">
+    <bean id="jpaInterception" class="swt6.util.JpaInterceptor">
         <property name="entityManagerFactory" ref="entityManagerFactory" />
     </bean>
 
     <aop:config>
         <aop:aspect ref="jpaInterception">
             <aop:around method="holdEntityManager"
-                        pointcut="execution(public * swt6.spring.worklog.ui.*.*(..))"/>
+                        pointcut="execution(public * swt6.spring.ui.*.*(..))"/>
         </aop:aspect>
     </aop:config>
 

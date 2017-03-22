@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="Derby (Client) - jdbc:derby://localhost/WorkLogDb;create=true">
+  <database-model serializer="dbm" rdbms="DERBY" format-version="4.0">
+    <root id="1"/>
+    <schema id="2" parent="1" name="APP"/>
+    <schema id="3" parent="1" name="DERBY">
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <schema id="4" parent="1" name="NULLID"/>
+    <schema id="5" parent="1" name="SQLJ"/>
+    <schema id="6" parent="1" name="SYS"/>
+    <schema id="7" parent="1" name="SYSCAT"/>
+    <schema id="8" parent="1" name="SYSCS_DIAG"/>
+    <schema id="9" parent="1" name="SYSCS_UTIL"/>
+    <schema id="10" parent="1" name="SYSFUN"/>
+    <schema id="11" parent="1" name="SYSIBM"/>
+    <schema id="12" parent="1" name="SYSPROC"/>
+    <schema id="13" parent="1" name="SYSSTAT"/>
+    <table id="14" parent="3" name="ADDRESS"/>
+    <table id="15" parent="3" name="EMPLOYEE"/>
+    <table id="16" parent="3" name="ISSUE"/>
+    <table id="17" parent="3" name="LOGBOOKENTRY"/>
+    <table id="18" parent="3" name="PERMANENTEMPLOYEE"/>
+    <table id="19" parent="3" name="PHASE"/>
+    <table id="20" parent="3" name="PROJECT"/>
+    <table id="21" parent="3" name="PROJECTEMPLOYEE"/>
+    <table id="22" parent="3" name="TEMPORARYEMPLOYEE"/>
+    <column id="23" parent="14" name="CITY">
+      <Position>1</Position>
+      <DataType>VARCHAR(255)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="24" parent="14" name="STREET">
+      <Position>2</Position>
+      <DataType>VARCHAR(255)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="25" parent="14" name="ZIPCODE">
+      <Position>3</Position>
+      <DataType>VARCHAR(255)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="26" parent="14" name="SQL170322161418550">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>CITY
+STREET
+ZIPCODE</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="27" parent="15" name="ID">
+      <Position>1</Position>
+      <DataType>BIGINT(19)|-5</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="28" parent="15" name="DATEOFBIRTH">
+      <Position>2</Position>
+      <DataType>DATE(10)|91</DataType>
+    </column>
+    <column id="29" parent="15" name="FIRSTNAME">
+      <Position>3</Position>
+      <DataType>VARCHAR(50)|12</DataType>
+    </column>
+    <column id="30" parent="15" name="LASTNAME">
+      <Position>4</Position>
+      <DataType>VARCHAR(50)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="31" parent="15" name="CITY">
+      <Position>5</Position>
+      <DataType>VARCHAR(255)|12</DataType>
+    </column>
+    <column id="32" parent="15" name="STREET">
+      <Position>6</Position>
+      <DataType>VARCHAR(255)|12</DataType>
+    </column>
+    <column id="33" parent="15" name="ZIPCODE">
+      <Position>7</Position>
+      <DataType>VARCHAR(255)|12</DataType>
+    </column>
+    <index id="34" parent="15" name="SQL170322161418810">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>CITY
+STREET
+ZIPCODE</ColNames>
+    </index>
+    <key id="35" parent="15" name="SQL170322161418590">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="36" parent="15" name="FK77NRFATCKQHF0IFLG2FTKOVQH">
+      <ColNames>ZIPCODE</ColNames>
+      <RefSchemaName>DERBY</RefSchemaName>
+      <RefTableName>ADDRESS</RefTableName>
+      <RefColNames>ZIPCODE</RefColNames>
+      <OnDelete>no-action</OnDelete>
+      <OnUpdate>no-action</OnUpdate>
+    </foreign-key>
+    <column id="37" parent="16" name="ID">
+      <Position>1</Position>
+      <DataType>BIGINT(19)|-5</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="38" parent="16" name="DESCRIPTION">
+      <Position>2</Position>
+      <DataType>VARCHAR(1000)|12</DataType>
+    </column>
+    <column id="39" parent="16" name="ESTIMATEDMINUTES">
+      <Position>3</Position>
+      <DataType>INTEGER(10)|4</DataType>
+    </column>
+    <column id="40" parent="16" name="PERCENTAGEDONE">
+      <Position>4</Position>
+      <DataType>INTEGER(10)|4</DataType>
+    </column>
+    <column id="41" parent="16" name="PRIORITY">
+      <Position>5</Position>
+      <DataType>INTEGER(10)|4</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="42" parent="16" name="STATE">
+      <Position>6</Position>
+      <DataType>INTEGER(10)|4</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="43" parent="16" name="ASSIGNEE_ID">
+      <Position>7</Position>
+      <DataType>BIGINT(19)|-5</DataType>
+    </column>
+    <column id="44" parent="16" name="PROJECT_ID">
+      <Position>8</Position>
+      <DataType>BIGINT(19)|-5</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="45" parent="16" name="SQL170322161418620">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="46" parent="16" name="FK4C9GJUO9F53N1PJC6FCL30T37">
+      <ColNames>ASSIGNEE_ID</ColNames>
+      <RefSchemaName>DERBY</RefSchemaName>
+      <RefTableName>EMPLOYEE</RefTableName>
+      <RefKeyName>SQL170322161418590</RefKeyName>
+      <RefColNames>ID</RefColNames>
+      <OnDelete>no-action</OnDelete>
+      <OnUpdate>no-action</OnUpdate>
+    </foreign-key>
+    <foreign-key id="47" parent="16" name="FKLBHM6G2AL5IWRTD2R2FRP8QCJ">
+      <ColNames>PROJECT_ID</ColNames>
+      <RefSchemaName>DERBY</RefSchemaName>
+      <RefTableName>PROJECT</RefTableName>
+      <RefKeyName>SQL170322161418720</RefKeyName>
+      <RefColNames>ID</RefColNames>
+      <OnDelete>no-action</OnDelete>
+      <OnUpdate>no-action</OnUpdate>
+    </foreign-key>
+    <column id="48" parent="17" name="ID">
+      <Position>1</Position>
+      <DataType>BIGINT(19)|-5</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="49" parent="17" name="ACTIVITY">
+      <Position>2</Position>
+      <DataType>VARCHAR(255)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="50" parent="17" name="STARTTIME">
+      <Position>3</Position>
+      <DataType>TIMESTAMP(29,9)|93</DataType>
+    </column>
+    <column id="51" parent="17" name="STOPTIME">
+      <Position>4</Position>
+      <DataType>TIMESTAMP(29,9)|93</DataType>
+    </column>
+    <column id="52" parent="17" name="EMPLOYEE_ID">
+      <Position>5</Position>
+      <DataType>BIGINT(19)|-5</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="53" parent="17" name="ISSUE_ID">
+      <Position>6</Position>
+      <DataType>BIGINT(19)|-5</DataType>
+    </column>
+    <column id="54" parent="17" name="PHASE_ID">
+      <Position>7</Position>
+      <DataType>BIGINT(19)|-5</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="55" parent="17" name="PROJECT_ID">
+      <Position>8</Position>
+      <DataType>BIGINT(19)|-5</DataType>
+    </column>
+    <key id="56" parent="17" name="SQL170322161418640">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="57" parent="17" name="FK375U29UUP72HX3B91FF2BBMIB">
+      <ColNames>EMPLOYEE_ID</ColNames>
+      <RefSchemaName>DERBY</RefSchemaName>
+      <RefTableName>EMPLOYEE</RefTableName>
+      <RefKeyName>SQL170322161418590</RefKeyName>
+      <RefColNames>ID</RefColNames>
+      <OnDelete>no-action</OnDelete>
+      <OnUpdate>no-action</OnUpdate>
+    </foreign-key>
+    <foreign-key id="58" parent="17" name="FK71V6KXVGNSN8G6P21QIQY1VQC">
+      <ColNames>ISSUE_ID</ColNames>
+      <RefSchemaName>DERBY</RefSchemaName>
+      <RefTableName>ISSUE</RefTableName>
+      <RefKeyName>SQL170322161418620</RefKeyName>
+      <RefColNames>ID</RefColNames>
+      <OnDelete>no-action</OnDelete>
+      <OnUpdate>no-action</OnUpdate>
+    </foreign-key>
+    <foreign-key id="59" parent="17" name="FKQ3VVF48HLPJ0EYG08ISI4D780">
+      <ColNames>PHASE_ID</ColNames>
+      <RefSchemaName>DERBY</RefSchemaName>
+      <RefTableName>PHASE</RefTableName>
+      <RefKeyName>SQL170322161418690</RefKeyName>
+      <RefColNames>ID</RefColNames>
+      <OnDelete>no-action</OnDelete>
+      <OnUpdate>no-action</OnUpdate>
+    </foreign-key>
+    <foreign-key id="60" parent="17" name="FKOJ4T3LLHFE7PWI9MR1S1LHSNR">
+      <ColNames>PROJECT_ID</ColNames>
+      <RefSchemaName>DERBY</RefSchemaName>
+      <RefTableName>PROJECT</RefTableName>
+      <RefKeyName>SQL170322161418720</RefKeyName>
+      <RefColNames>ID</RefColNames>
+      <OnDelete>no-action</OnDelete>
+      <OnUpdate>no-action</OnUpdate>
+    </foreign-key>
+    <column id="61" parent="18" name="SALARY">
+      <Position>1</Position>
+      <DataType>DOUBLE(52)|8</DataType>
+    </column>
+    <column id="62" parent="18" name="ID">
+      <Position>2</Position>
+      <DataType>BIGINT(19)|-5</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="63" parent="18" name="SQL170322161418660">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="64" parent="18" name="FK1LD26EC4MW1M6G93M6ULGRJ3M">
+      <ColNames>ID</ColNames>
+      <RefSchemaName>DERBY</RefSchemaName>
+      <RefTableName>EMPLOYEE</RefTableName>
+      <RefKeyName>SQL170322161418590</RefKeyName>
+      <RefColNames>ID</RefColNames>
+      <OnDelete>no-action</OnDelete>
+      <OnUpdate>no-action</OnUpdate>
+    </foreign-key>
+    <column id="65" parent="19" name="ID">
+      <Position>1</Position>
+      <DataType>BIGINT(19)|-5</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="66" parent="19" name="NAME">
+      <Position>2</Position>
+      <DataType>VARCHAR(255)|12</DataType>
+    </column>
+    <key id="67" parent="19" name="SQL170322161418690">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="68" parent="20" name="ID">
+      <Position>1</Position>
+      <DataType>BIGINT(19)|-5</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="69" parent="20" name="NAME">
+      <Position>2</Position>
+      <DataType>VARCHAR(255)|12</DataType>
+    </column>
+    <column id="70" parent="20" name="LEADERID">
+      <Position>3</Position>
+      <DataType>BIGINT(19)|-5</DataType>
+    </column>
+    <key id="71" parent="20" name="SQL170322161418720">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="72" parent="20" name="FKA4F9F3KGA2GF1CTSSP813QV8R">
+      <ColNames>LEADERID</ColNames>
+      <RefSchemaName>DERBY</RefSchemaName>
+      <RefTableName>EMPLOYEE</RefTableName>
+      <RefKeyName>SQL170322161418590</RefKeyName>
+      <RefColNames>ID</RefColNames>
+      <OnDelete>no-action</OnDelete>
+      <OnUpdate>no-action</OnUpdate>
+    </foreign-key>
+    <column id="73" parent="21" name="PROJECTID">
+      <Position>1</Position>
+      <DataType>BIGINT(19)|-5</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="74" parent="21" name="EMPLOYEEID">
+      <Position>2</Position>
+      <DataType>BIGINT(19)|-5</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="75" parent="21" name="SQL170322161418760">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>PROJECTID
+EMPLOYEEID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="76" parent="21" name="FKT7G8J8L16F57NMBAAWX09MM6E">
+      <ColNames>PROJECTID</ColNames>
+      <RefSchemaName>DERBY</RefSchemaName>
+      <RefTableName>PROJECT</RefTableName>
+      <RefKeyName>SQL170322161418720</RefKeyName>
+      <RefColNames>ID</RefColNames>
+      <OnDelete>no-action</OnDelete>
+      <OnUpdate>no-action</OnUpdate>
+    </foreign-key>
+    <foreign-key id="77" parent="21" name="FKSC64LV12GPC9YOG95M4S1VEUM">
+      <ColNames>EMPLOYEEID</ColNames>
+      <RefSchemaName>DERBY</RefSchemaName>
+      <RefTableName>EMPLOYEE</RefTableName>
+      <RefKeyName>SQL170322161418590</RefKeyName>
+      <RefColNames>ID</RefColNames>
+      <OnDelete>no-action</OnDelete>
+      <OnUpdate>no-action</OnUpdate>
+    </foreign-key>
+    <column id="78" parent="22" name="ENDDATE">
+      <Position>1</Position>
+      <DataType>DATE(10)|91</DataType>
+    </column>
+    <column id="79" parent="22" name="HOURLYRATE">
+      <Position>2</Position>
+      <DataType>DOUBLE(52)|8</DataType>
+    </column>
+    <column id="80" parent="22" name="RENTER">
+      <Position>3</Position>
+      <DataType>VARCHAR(255)|12</DataType>
+    </column>
+    <column id="81" parent="22" name="STARTDATE">
+      <Position>4</Position>
+      <DataType>DATE(10)|91</DataType>
+    </column>
+    <column id="82" parent="22" name="ID">
+      <Position>5</Position>
+      <DataType>BIGINT(19)|-5</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="83" parent="22" name="SQL170322161418780">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="84" parent="22" name="FK681MCSHOQFAGNER4B5T91S5W0">
+      <ColNames>ID</ColNames>
+      <RefSchemaName>DERBY</RefSchemaName>
+      <RefTableName>EMPLOYEE</RefTableName>
+      <RefKeyName>SQL170322161418590</RefKeyName>
+      <RefColNames>ID</RefColNames>
+      <OnDelete>no-action</OnDelete>
+      <OnUpdate>no-action</OnUpdate>
+    </foreign-key>
+  </database-model>
+</dataSource>

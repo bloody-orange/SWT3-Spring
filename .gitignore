@@ -16,4 +16,4 @@ buildNumber.properties
 /src/test/java/swt6/orm/
 lib/
 *.iml
-
+/postgres/
