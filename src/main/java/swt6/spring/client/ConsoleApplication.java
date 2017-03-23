@@ -31,6 +31,8 @@ public class ConsoleApplication {
             Project proj = new Project("Hefgllo", null);
             ui.createProject(proj);
             ui.displayAllProjects();
+            ui.displayWorktimesByProject(101L);
+            ui.displayWorktimesByProject(102L);
         }
     }
 }

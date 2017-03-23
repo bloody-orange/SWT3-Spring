@@ -46,6 +46,7 @@ public abstract class AbstractBaseManager<
 
     @Override
     public void removeById(IdT id) {
-        repo.delete(id);
+        T entity = repo.findOne(id);
+        remove(entity);
     }
 }

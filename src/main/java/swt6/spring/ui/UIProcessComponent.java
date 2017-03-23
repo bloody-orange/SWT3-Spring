@@ -1,15 +1,15 @@
 package swt6.spring.ui;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import swt6.spring.domain.Employee;
-import swt6.spring.bl.*;
-import swt6.spring.domain.Issue;
-import swt6.spring.domain.IssueState;
-import swt6.spring.domain.LogbookEntry;
-import swt6.spring.domain.Project;
 
-import javax.inject.Inject;
-import javax.inject.Named;
+import swt6.spring.bl.*;
+import swt6.spring.domain.*;
+import swt6.util.PrintUtil;
+import swt6.util.Tuple;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class UIProcessComponent implements UIProcessFacade {
 
@@ -52,12 +52,42 @@ public class UIProcessComponent implements UIProcessFacade {
 
     @Override
     public void displayEmployeesByProject(Long projId) {
-
+        for (Employee e: employeeManager.findAllByProject(projId)) {
+            System.out.println(e);
+        }
     }
 
     @Override
     public void displayWorktimesByProject(Long projId) {
+        Project project = projectManager.findById(projId);
+        Map<Employee, Tuple<Long, Long>> timeTable = projectManager.getTimetable(projId);
+        System.out.println("<< Project '" + project.getName() + "' >>");
+        System.out.printf("Total work done: %d/%d minutes.%n",
+                timeTable.entrySet()
+                        .stream()
+                        .mapToLong(entry -> entry.getValue().first)
+                        .sum(),
+                timeTable.entrySet()
+                        .stream()
+                        .mapToLong(entry -> entry.getValue().second)
+                        .sum()
+        );
+        System.out.println();
 
+        printColumn("<Angestellter>", 20);
+        printColumn("<bisher>", 10);
+        printColumn("<insg.>", 10);
+        System.out.println();
+        System.out.println("----------------------------------------");
+
+        for (Map.Entry<Employee, Tuple<Long, Long>> entry: timeTable.entrySet()) {
+            printColumn(entry.getKey().getLastName() + ", " +
+                    entry.getKey().getFirstName().substring(0, 1) + ".", 20);
+            printColumn(entry.getValue().first.toString(), 10);
+            printColumn(entry.getValue().second.toString(), 10);
+            System.out.println();
+        }
+        System.out.println();
     }
 
     @Override
@@ -118,5 +148,13 @@ public class UIProcessComponent implements UIProcessFacade {
     @Override
     public void displayAllEntries() {
 
+    }
+
+    private void printColumn(String s, int width) {
+        System.out.print(s);
+        for(int i = 0; i < width - s.length() - 1; ++i) {
+            System.out.print(" ");
+        }
+        System.out.print(" ");
     }
 }

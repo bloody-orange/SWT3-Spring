@@ -76,6 +76,14 @@ public class LogbookEntry implements BaseEntity<Long> {
         issue.getEntries().remove(this);
     }
 
+    public Long getSpentMinutes() {
+        if (stopTime == null || startTime == null ||
+                stopTime.getTime() - startTime.getTime() < 0) {
+            return 0L;
+        }
+        return (stopTime.getTime() - startTime.getTime()) / (60 * 1000);
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
