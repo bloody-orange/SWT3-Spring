@@ -31,7 +31,7 @@ public class PermanentEmployee extends Employee {
 
     @Override
     public String toString() {
-        return super.toString() + "\n     salary: " + salary;
+        return super.toString() + " salary: " + salary;
     }
 
 }

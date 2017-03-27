@@ -116,7 +116,7 @@ public class LogbookEntry implements BaseEntity<Long> {
         return employee;
     }
 
-    void setEmployee(Employee employee) {
+    public void setEmployee(Employee employee) {
         this.employee = employee;
     }
 
@@ -146,7 +146,7 @@ public class LogbookEntry implements BaseEntity<Long> {
                 id,
                 activity,
                 format.format(startTime),
-                format.format(stopTime),
+                stopTime == null ? "now" : format.format(stopTime),
                 employee == null ? "<null>" : employee.getLastName(),
                 issue == null ? "<null>" : issue.getId());
     }

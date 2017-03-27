@@ -2,7 +2,7 @@
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
     <data-source source="LOCAL" name="Derby (Client) - jdbc:derby://localhost/WorkLogDb;create=true" uuid="85b4a6e8-6e4c-4fb0-a587-1b6522f4a485">
-      <driver-ref>99f59926-84e7-46f5-bf40-ddb13d045c3e</driver-ref>
+      <driver-ref>derby.remote</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.apache.derby.jdbc.ClientDriver</jdbc-driver>
       <jdbc-url>jdbc:derby://localhost/WorkLogDb;create=true</jdbc-url>
@@ -12,6 +12,12 @@
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://localhost:5432/postgres</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="Derby (Client) - jdbc:derby://localhost/WorkLogDb;create=true [2]" uuid="97b1abfd-5032-4440-8067-70a0086af96f">
+      <driver-ref>derby.remote</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.apache.derby.jdbc.ClientDriver</jdbc-driver>
+      <jdbc-url>jdbc:derby://localhost/WorkLogDb;create=true</jdbc-url>
     </data-source>
   </component>
 </project>

@@ -36,11 +36,14 @@ public class Employee implements BaseEntity<Long> {
     @Temporal(TemporalType.DATE)
     private Date dateOfBirth;
 
-    // default FetchType.LAZY
     @OneToMany(mappedBy = "employee", cascade = {CascadeType.ALL}, orphanRemoval = true,
                 fetch = FetchType.LAZY)
     @Fetch(FetchMode.SELECT)
     private Set<LogbookEntry> logbookEntries = new HashSet<>();
+
+    @OneToMany(mappedBy = "assignee", fetch = FetchType.LAZY)
+    @Fetch(FetchMode.SELECT)
+    private Set<Issue> issues = new HashSet<>();
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     @Fetch(FetchMode.JOIN)
@@ -101,6 +104,14 @@ public class Employee implements BaseEntity<Long> {
         this.lastName = lastName;
     }
 
+    public Set<Issue> getIssues() {
+        return issues;
+    }
+
+    public void setIssues(Set<Issue> issues) {
+        this.issues = issues;
+    }
+
     public Date getDateOfBirth() {
         return dateOfBirth;
     }
@@ -145,9 +156,22 @@ public class Employee implements BaseEntity<Long> {
         entry.setEmployee(this);
     }
 
+    public void addIssue(Issue issue) {
+        if (issue == null) {
+            throw new IllegalStateException("Issue was null");
+        }
+
+        if (issue.getAssignee() != null) {
+            issue.getAssignee().issues.remove(issue);
+        }
+
+        this.issues.add(issue);
+        issue.setAssignee(this);
+    }
+
     public void addLeadingProject(Project project) {
         if (project == null) {
-            throw new IllegalStateException("LogbookEntry was null");
+            throw new IllegalStateException("Project was null");
         }
 
         if (project.getLeader() != null) {
@@ -190,6 +214,6 @@ public class Employee implements BaseEntity<Long> {
 
     @Override
     public String toString() {
-        return String.format("[%d]: %s %s (%4$tY-%4$tm-%4$td)", id, firstName, lastName, dateOfBirth);
+        return String.format("[%d] %s %s (%4$tY-%4$tm-%4$td)", id, firstName, lastName, dateOfBirth);
     }
 }

@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/worklog-spring.iml" filepath="$PROJECT_DIR$/worklog-spring.iml" />
-      <module fileurl="file://C:\Users\Peter\Documents\SourceTree\SWT3-Spring\worklog-spring.iml" filepath="C:\Users\Peter\Documents\SourceTree\SWT3-Spring\worklog-spring.iml" />
     </modules>
   </component>
 </project>

@@ -62,7 +62,7 @@ public class TemporaryEmployee extends Employee {
 
     @Override
     public String toString() {
-        return super.toString() + "\n     rented from: " + renter + ", hourly rate: " + hourlyRate + ", start date: " + startDate
+        return super.toString() + " rented from: " + renter + ", hourly rate: " + hourlyRate + ", start date: " + startDate
                 + ", end date: " + endDate;
     }
 }

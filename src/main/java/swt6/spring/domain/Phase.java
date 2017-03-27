@@ -75,4 +75,9 @@ public class Phase implements BaseEntity<Long> {
             this.entries.remove(entry);
         }
     }
+
+    @Override
+    public String toString() {
+        return "[" + id + "] " + name;
+    }
 }

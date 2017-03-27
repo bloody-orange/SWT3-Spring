@@ -5,13 +5,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import swt6.spring.bl.LogbookEntryManager;
 import swt6.spring.dal.LogbookEntryRepository;
+import swt6.spring.domain.Employee;
+import swt6.spring.domain.Issue;
 import swt6.spring.domain.LogbookEntry;
+
+import java.util.List;
 
 @Component
 public class LogbookEntryManagerImpl extends AbstractBaseManager<LogbookEntry, Long, LogbookEntryRepository> implements LogbookEntryManager {
     @Autowired
     public LogbookEntryManagerImpl(LogbookEntryRepository repo) {
         super(LogbookEntry.class, repo);
+    }
+
+    @Override
+    public List<LogbookEntry> findAllByEmployeeAndIssue(Employee employee, Issue issue) {
+        return repo.findAllByEmployeeAndIssue(employee, issue);
     }
 
     @Override

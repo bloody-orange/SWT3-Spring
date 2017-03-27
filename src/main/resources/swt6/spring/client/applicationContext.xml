@@ -97,7 +97,6 @@
                         pointcut="execution(public * swt6.spring.ui.*.*(..))"/>
         </aop:aspect>
     </aop:config>
-
     <!-- ============ Enable annotation based dependency injection ============= -->
     <context:annotation-config />
 </beans>

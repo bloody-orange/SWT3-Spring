@@ -23,5 +23,16 @@
       <resolve-scope>postgres:postgres,public</resolve-scope>
       <unqualified-resolve-schemas>postgres:postgres,public</unqualified-resolve-schemas>
     </data-source>
+    <data-source name="Derby (Client) - jdbc:derby://localhost/WorkLogDb;create=true [2]" uuid="97b1abfd-5032-4440-8067-70a0086af96f">
+      <database-info product="Apache Derby" version="10.13.1.1 - (1765088)" jdbc-version="4.2" driver-name="Apache Derby Network Client JDBC Driver" driver-version="10.13.1.1 - (1765088)">
+        <identifier-quote-string>&quot;</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="upper" quoted-identifiers="exact" />
+      <secret-storage>master_key</secret-storage>
+      <user-name>derby</user-name>
+      <introspection-schemas>*:DERBY</introspection-schemas>
+      <resolve-scope>:APP,DERBY</resolve-scope>
+      <unqualified-resolve-schemas>:APP,DERBY</unqualified-resolve-schemas>
+    </data-source>
   </component>
 </project>

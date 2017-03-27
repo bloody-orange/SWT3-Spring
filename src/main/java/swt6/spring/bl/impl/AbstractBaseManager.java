@@ -16,7 +16,7 @@ public abstract class AbstractBaseManager<
         implements BaseManager<T, IdT> {
 
     private final Class<T> entityType;
-    protected final JpaRepository<T, IdT> repo;
+    protected final RepoT repo;
 
     protected AbstractBaseManager(Class<T> entityType, RepoT repo) {
         this.entityType = entityType;

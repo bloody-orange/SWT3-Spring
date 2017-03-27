@@ -8,8 +8,12 @@ import swt6.spring.dal.IssueRepository;
 import swt6.spring.dal.LogbookEntryRepository;
 import swt6.spring.domain.Address;
 import swt6.spring.domain.Issue;
+import swt6.spring.domain.IssueState;
+import swt6.spring.domain.Project;
 
 import javax.persistence.ManyToOne;
+import java.util.List;
+import java.util.Objects;
 
 @Component
 public class IssueManagerImpl extends AbstractBaseManager<Issue, Long, IssueRepository> implements IssueManager {
@@ -22,16 +26,28 @@ public class IssueManagerImpl extends AbstractBaseManager<Issue, Long, IssueRepo
     }
 
     @Override
+    public List<Issue> findByProject(Project project) {
+        return repo.findAllByProject(project);
+    }
+
+    @Override
+    public List<Issue> findByState(IssueState state) {
+        return repo.findAllByState(state);
+    }
+
+    @Override
+    public List<Issue> findByProjectAndState(Project project, IssueState state) {
+        return repo.findAllByProjectAndState(project, state);
+    }
+
+    @Override
     public Issue save(Issue issue) {
         if (issue == null) {
             throw new IllegalArgumentException("Issue is null");
         }
-        if (issue.getProject() == null) {
-            throw new IllegalArgumentException("Issue has no project");
-        }
         if (issue.getId() != null && issue.getAssignee() != null) {
             Issue old = findById(issue.getId());
-            if (old.getAssignee() != null && old.getAssignee() != issue.getAssignee()) {
+            if (old.getAssignee() != null && !old.getAssignee().getId().equals(issue.getAssignee().getId())) {
                 if (entryRepo.findAllByEmployeeAndIssue(old.getAssignee(), issue).size() > 0) {
                     throw new IllegalStateException("Assignee can't change anymore");
                 }
